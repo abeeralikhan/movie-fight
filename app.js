@@ -15,17 +15,26 @@ const fetchData = async (searchQuery) => {
   console.log(response.data);
 };
 
-let timerID;
+const debounce = (func, delay = 1000) => {
+  let timeoutID;
+
+  // for passing through the event object
+  return (...args) => {
+    // if previous network call exist, replace it with the new one
+    // in other words, "debouncing the input"
+    if (timeoutID) {
+      clearInterval(timeoutID);
+    }
+    timeoutID = setTimeout(() => {
+      func.apply(null, args);
+    }, delay);
+  };
+};
+
 const searchBar = document.querySelector(".searchBar");
 
 const onInput = (event) => {
-  if (timerID) {
-    clearInterval(timerID);
-  }
-
-  timerID = setTimeout(() => {
-    fetchData(event.target.value);
-  }, 500);
+  fetchData(event.target.value);
 };
 
-searchBar.addEventListener("input", onInput);
+searchBar.addEventListener("input", debounce(onInput, 500));
