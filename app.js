@@ -12,6 +12,12 @@ const fetchData = async (searchQuery) => {
     },
   });
 
+  // returning an empty array if the response consists of any error
+  if (response.data.Error) {
+    return [];
+  }
+
+  // returning the array of the movies object
   return response.data.Search;
 };
 
