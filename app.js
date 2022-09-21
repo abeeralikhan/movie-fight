@@ -26,7 +26,7 @@ const root = document.querySelector(".autocomplete");
 
 root.innerHTML = `
   <label><strong> Search For a Movie </strong></label>
-  <input class="searchBar" type="text"/>
+  <input class="searchBar input" type="text"/>
   <div class="dropdown">
     <div class"dropdown-menu">
       <div class="dropdown-content results"></div>
@@ -42,14 +42,15 @@ const onInput = async (event) => {
   const movies = await fetchData(event.target.value);
 
   for (let movie of movies) {
-    const div = document.createElement("div");
+    const option = document.createElement("a");
+    option.classList.add("dropdown-item");
 
-    div.innerHTML = `
+    option.innerHTML = `
       <img src="${movie.Poster}" />
-      <h1> ${movie.Title} </h1>
+      ${movie.Title}
     `;
 
-    document.querySelector("#target").appendChild(div);
+    resultsWrapper.appendChild(option);
   }
 };
 
