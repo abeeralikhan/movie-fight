@@ -22,7 +22,21 @@ const fetchData = async (searchQuery) => {
   return response.data.Search;
 };
 
+const root = document.querySelector(".autocomplete");
+
+root.innerHTML = `
+  <label><strong> Search For a Movie </strong></label>
+  <input class="searchBar" type="text"/>
+  <div class="dropdown">
+    <div class"dropdown-menu">
+      <div class="dropdown-content results"></div>
+    </div>
+  </div>
+`;
+
 const searchBar = document.querySelector(".searchBar");
+const dropdown = document.querySelector(".dropdown");
+const resultsWrapper = document.querySelector(".results");
 
 const onInput = async (event) => {
   const movies = await fetchData(event.target.value);
