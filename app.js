@@ -3,10 +3,7 @@ API params
   s --> for index search (list) --> pass movie name
   i --> for show search (lookup) --> pass movie id
 */
-
-createAutoComplete({
-  root: document.querySelector(".autocomplete"),
-
+const configAutoComplete = {
   renderOption(movie) {
     // if poster of the movie is unavailable i.e "N/A",
     // setting it equal to an empty string to avoid errors
@@ -42,6 +39,16 @@ createAutoComplete({
     // returning the array of the movies object
     return response.data.Search;
   },
+};
+
+createAutoComplete({
+  ...configAutoComplete,
+  root: document.querySelector("#left-autocomplete"),
+});
+
+createAutoComplete({
+  ...configAutoComplete,
+  root: document.querySelector("#right-autocomplete"),
 });
 
 const onMovieSelect = async (movie) => {
