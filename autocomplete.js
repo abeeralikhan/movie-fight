@@ -8,7 +8,7 @@ const createAutoComplete = ({
   root.innerHTML = `
   <label><strong> Search </strong></label>
   <input class="searchBar input" type="text"/>
-  <div class="dropdown">
+  <div class="dropdown dd">
     <div class"dropdown-menu">
       <div class="dropdown-content results"></div>
     </div>

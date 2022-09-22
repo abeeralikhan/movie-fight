@@ -52,3 +52,11 @@ figure .image img {
   height: 50px;
   margin-right: 10px;
 }
+
+.summary {
+  margin-top: 1rem;
+}
+/* .dd {
+  position: absolute;
+  z-index: 10;
+} */
