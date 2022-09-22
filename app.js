@@ -20,7 +20,7 @@ const configAutoComplete = {
 
   // helper function: for index search or to get partial data of movies
   async fetchData(searchQuery) {
-    const response = await axios.get("http://www.omdbapi.com/", {
+    const response = await axios.get("//www.omdbapi.com/", {
       params: {
         apikey: "96f77f16",
         s: searchQuery,
@@ -58,7 +58,7 @@ createAutoComplete({
 let leftMovie, rightMovie;
 
 const onMovieSelect = async (movie, summaryTarget, side) => {
-  const response = await axios.get("http://www.omdbapi.com/", {
+  const response = await axios.get("//www.omdbapi.com/", {
     params: {
       apikey: "96f77f16",
       i: movie.imdbID,
