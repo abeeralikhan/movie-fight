@@ -25,15 +25,16 @@ const fetchData = async (searchQuery) => {
 };
 
 createAutoComplete({
-  root: document.querySelector(".autocomplete1"),
-});
-
-createAutoComplete({
-  root: document.querySelector(".autocomplete2"),
-});
-
-createAutoComplete({
-  root: document.querySelector(".autocomplete3"),
+  root: document.querySelector(".autocomplete"),
+  renderOption(movie) {
+    // if poster of the movie is unavailable i.e "N/A",
+    // setting it equal to an empty string to avoid errors
+    const imgSrc = movie.Poster === "N/A" ? "" : movie.Poster;
+    return `
+      <img src="${imgSrc}" />
+      ${movie.Title} (${movie.Year})
+    `;
+  },
 });
 
 const onMovieSelect = async (movie) => {

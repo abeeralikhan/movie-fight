@@ -1,4 +1,4 @@
-const createAutoComplete = ({ root }) => {
+const createAutoComplete = ({ root, renderOption }) => {
   root.innerHTML = `
   <label><strong> Search For a Movie </strong></label>
   <input class="searchBar input" type="text"/>
@@ -33,15 +33,8 @@ const createAutoComplete = ({ root }) => {
     for (let movie of movies) {
       const option = document.createElement("a");
 
-      // if poster of the movie is unavailable i.e "N/A",
-      // setting it equal to an empty string to avoid errors
-      const imgSrc = movie.Poster === "N/A" ? "" : movie.Poster;
-
       option.classList.add("dropdown-item");
-      option.innerHTML = `
-      <img src="${imgSrc}" />
-      ${movie.Title}
-    `;
+      option.innerHTML = renderOption(movie);
       option.addEventListener("click", () => {
         dropdown.style.display = "none";
         searchBar.value = movie.Title;
