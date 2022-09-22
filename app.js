@@ -4,6 +4,8 @@ API params
   i --> for show search (lookup) --> pass movie id
 */
 
+// const API_KEY = "96f77f16"
+
 // helper function: for index search or to get partial data of movies
 const fetchData = async (searchQuery) => {
   const response = await axios.get("http://www.omdbapi.com/", {
@@ -70,6 +72,7 @@ const onInput = async (event) => {
     option.addEventListener("click", () => {
       dropdown.style.display = "none";
       searchBar.value = movie.Title;
+      onMovieSelect(movie);
     });
 
     resultsWrapper.appendChild(option);
@@ -86,3 +89,14 @@ document.addEventListener("click", (event) => {
     dropdown.style.display = "none";
   }
 });
+
+const onMovieSelect = async (movie) => {
+  const response = await axios.get("http://www.omdbapi.com/", {
+    params: {
+      apikey: "96f77f16",
+      i: movie.imdbID,
+    },
+  });
+
+  console.log(response.data);
+};
