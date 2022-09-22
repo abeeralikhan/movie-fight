@@ -67,6 +67,10 @@ const onInput = async (event) => {
       <img src="${imgSrc}" />
       ${movie.Title}
     `;
+    option.addEventListener("click", () => {
+      dropdown.style.display = "none";
+      searchBar.value = movie.Title;
+    });
 
     resultsWrapper.appendChild(option);
   }
