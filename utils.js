@@ -8,6 +8,9 @@ const debounce = (func, delay = 1000) => {
     if (timeoutID) {
       clearInterval(timeoutID);
     }
+
+    // setting the timeoutID
+    // it will be used to clearing the interval when needed
     timeoutID = setTimeout(() => {
       func.apply(null, args);
     }, delay);
