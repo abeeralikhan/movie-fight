@@ -3,9 +3,10 @@ const createAutoComplete = ({
   renderOption,
   onOptionSelect,
   inputValue,
+  fetchData,
 }) => {
   root.innerHTML = `
-  <label><strong> Search For a Movie </strong></label>
+  <label><strong> Search </strong></label>
   <input class="searchBar input" type="text"/>
   <div class="dropdown">
     <div class"dropdown-menu">
@@ -19,11 +20,11 @@ const createAutoComplete = ({
   const resultsWrapper = root.querySelector(".results");
 
   const onInput = async (event) => {
-    const movies = await fetchData(event.target.value);
+    const items = await fetchData(event.target.value);
 
     // for handling empty responses
-    if (!movies.length) {
-      // hide dropdown menu if not found any searched movie title
+    if (!items.length) {
+      // hide dropdown menu if not found any searched title
       dropdown.style.display = "none";
       return;
     }
@@ -35,15 +36,15 @@ const createAutoComplete = ({
     // we are setting the display to none on external clicks & on empty responses
     dropdown.style.display = "block";
 
-    for (let movie of movies) {
+    for (let item of items) {
       const option = document.createElement("a");
 
       option.classList.add("dropdown-item");
-      option.innerHTML = renderOption(movie);
+      option.innerHTML = renderOption(item);
       option.addEventListener("click", () => {
         dropdown.style.display = "none";
-        searchBar.value = inputValue(movie);
-        onOptionSelect(movie);
+        searchBar.value = inputValue(item);
+        onOptionSelect(item);
       });
 
       resultsWrapper.appendChild(option);

@@ -4,28 +4,9 @@ API params
   i --> for show search (lookup) --> pass movie id
 */
 
-// const API_KEY = "96f77f16"
-
-// helper function: for index search or to get partial data of movies
-const fetchData = async (searchQuery) => {
-  const response = await axios.get("http://www.omdbapi.com/", {
-    params: {
-      apikey: "96f77f16",
-      s: searchQuery,
-    },
-  });
-
-  // returning an empty array if the response consists of any error
-  if (response.data.Error) {
-    return [];
-  }
-
-  // returning the array of the movies object
-  return response.data.Search;
-};
-
 createAutoComplete({
   root: document.querySelector(".autocomplete"),
+
   renderOption(movie) {
     // if poster of the movie is unavailable i.e "N/A",
     // setting it equal to an empty string to avoid errors
@@ -35,11 +16,31 @@ createAutoComplete({
       ${movie.Title} (${movie.Year})
     `;
   },
+
   onOptionSelect(movie) {
     onMovieSelect(movie);
   },
+
   inputValue(movie) {
     return movie.Title;
+  },
+
+  // helper function: for index search or to get partial data of movies
+  async fetchData(searchQuery) {
+    const response = await axios.get("http://www.omdbapi.com/", {
+      params: {
+        apikey: "96f77f16",
+        s: searchQuery,
+      },
+    });
+
+    // returning an empty array if the response consists of any error
+    if (response.data.Error) {
+      return [];
+    }
+
+    // returning the array of the movies object
+    return response.data.Search;
   },
 });
 
