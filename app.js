@@ -41,10 +41,22 @@ const resultsWrapper = document.querySelector(".results");
 const onInput = async (event) => {
   const movies = await fetchData(event.target.value);
 
+  if (!movies.length) {
+    dropdown.style.display = "none";
+    return;
+  }
+
+  // for clearing previous search results
   resultsWrapper.innerHTML = "";
+  dropdown.style.display = "block";
+
+  // is-active is used to control the visibility of the dropdown menu
   dropdown.classList.add("is-active");
   for (let movie of movies) {
     const option = document.createElement("a");
+
+    // if poster of the movie is unavailable i.e "N/A",
+    // setting it equal to an empty string to avoid errors
     const imgSrc = movie.Poster === "N/A" ? "" : movie.Poster;
 
     option.classList.add("dropdown-item");
@@ -57,4 +69,12 @@ const onInput = async (event) => {
   }
 };
 
+// wrapping the onInput function inside the debounce function,
+// and passing setting the delay equal to 500ms i.e 0.5s
 searchBar.addEventListener("input", debounce(onInput, 500));
+
+document.addEventListener("click", (event) => {
+  if (!root.contains(event.target)) {
+    dropdown.style.display = "none";
+  }
+});
